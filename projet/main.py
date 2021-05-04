@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from simulator import Simulator, World, Body
 from simulator.utils.vector import Vector2
 from simulator.solvers import DummySolver

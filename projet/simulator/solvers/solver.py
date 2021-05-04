@@ -13,19 +13,31 @@ class ISolver:
     # we will be able to reuse some day
 
     def __init__(self, f, t0, y0, max_step_size=0.01):
+        """y0 est la valeur initiale, f la fonction qui donne la dérivée"""
         self.f = f
         self.t0 = t0
         self.y0 = y0
         self.max_step_size = max_step_size
 
-    def integrate(self, t):
+    def integrate(self, t, max_step_size = 0.01):
         """ Compute the solution of the system at t
             The input `t` given to this method should be increasing
             throughout the execution of the program.
             Return the new state at time t.
         """
-        raise NotImplementedError
+        return self.y0 + f(t) * max_step_size
 
 
 class DummySolver(ISolver):
+
+    def __init__(self, f, t, y0):
+        self.f = f
+        self.t = t
+        self.y0 = y0
+
+
+   #integrate
+  # t = t + maxstepsize
+
+
     pass
