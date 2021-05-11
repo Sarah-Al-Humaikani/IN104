@@ -1,3 +1,5 @@
+from ..utils.vector import Vector, Vector2
+from numpy import arange
 class SolverError(Exception):
     pass
 
@@ -19,25 +21,23 @@ class ISolver:
         self.y0 = y0
         self.max_step_size = max_step_size
 
-    def integrate(self, t, max_step_size = 0.01):
+    def integrate(self, t, step_size = self.max_step_size):
         """ Compute the solution of the system at t
             The input `t` given to this method should be increasing
             throughout the execution of the program.
             Return the new state at time t.
         """
-        return self.y0 + f(t) * max_step_size
+       res = self.y0
+        for i in arange(self.t0,step_size,t):
+            res += self.f(i,res) * step_size
+            time = i
+
+        if t - time >0:
+            res += self.f(time,res)*(t-time)
+        return res
 
 
 class DummySolver(ISolver):
-
-    def __init__(self, f, t, y0):
-        self.f = f
-        self.t = t
-        self.y0 = y0
-
-
-   #integrate
-  # t = t + maxstepsize
 
 
     pass
