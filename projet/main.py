@@ -10,7 +10,7 @@ import pygame as pg
 if __name__ == "__main__":
     b1 = Body(Vector2(0, 0),
               velocity=Vector2(0, 0),
-              mass=10,
+              mass=1000,
               draw_radius=10)
     b2 = Body(Vector2(1, 1),
               velocity=Vector2(0, 0.2),
@@ -27,11 +27,11 @@ if __name__ == "__main__":
     screen = Screen(screen_size,
                     bg_color=(0, 0, 0),
                     caption="Simulator")
-    screen.camera.scale = 50
+    screen.camera.scale = 1
 
     # this coefficient controls the speed
     # of the simulation
-    time_scale = 10
+    time_scale = 100
 
     print("Start program")
     while not screen.should_quit:

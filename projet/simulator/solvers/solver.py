@@ -21,13 +21,15 @@ class ISolver:
         self.y0 = y0
         self.max_step_size = max_step_size
 
-    def integrate(self, t, step_size = self.max_step_size):
+    def integrate(self, t, step_size = -1):
         """ Compute the solution of the system at t
             The input `t` given to this method should be increasing
             throughout the execution of the program.
             Return the new state at time t.
         """
-       res = self.y0
+        if step_size <= 0 : step_size = self.max_step_size
+        res = self.y0
+        time = 0
         for i in arange(self.t0,step_size,t):
             res += self.f(i,res) * step_size
             time = i
