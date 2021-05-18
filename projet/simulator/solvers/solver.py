@@ -14,7 +14,7 @@ class ISolver:
     # and build a more general library that
     # we will be able to reuse some day
 
-    def __init__(self, f, t0, y0, max_step_size=0.01):
+    def __init__(self, f, t0, y0, max_step_size=1e-2):
         """y0 est la valeur initiale, f la fonction qui donne la dérivée"""
         self.f = f
         self.t0 = t0
@@ -29,8 +29,8 @@ class ISolver:
         """
         if step_size <= 0 : step_size = self.max_step_size
         res = self.y0
-        time = 0
-        for i in arange(self.t0,step_size,t):
+        time = t
+        for i in arange(self.t0,t,step_size):
             res += self.f(i,res) * step_size
             time = i
 

@@ -33,25 +33,24 @@ class IEngine:
 
             body_i = self.world.get(i)
             m_i = body_i.mass
-            pos_i = body_i.position
+            pos_i = Vector2(y0[2*i], y0[2*i+1])
             #calcul de la force
             f=Vector(2)
             for j in range(n):
                 if(i!=j):
                     body_j = self.world.get(j)
                     m_j = body_j.mass
-                    pos_j = body_j.position
+                    pos_j = Vector2(y0[2*j], y0[2*j+1])
                     f+=gravitational_force(pos_i,m_i,pos_j,m_j)
 
             #calcul des accélérations et nouvelles vitesses, mises dans le tableau
             a_i = f /m_i
-            vx_i = y0[2*i] + h * a_i[0]
-            vy_i = y0[2*i+1] + h * a_i[1]
+            vx_i = y0[2*n+2*i] + h * a_i[0]
+            vy_i = y0[2*n+2*i+1] + h * a_i[1]
             res[2*i] = vx_i
             res[2*i+1] = vy_i
             res[2*n+2*i] = a_i[0]
             res[2*n+2*i+1] = a_i[1]
-        print("%s\n", res)
         return res
 
 

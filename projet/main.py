@@ -10,16 +10,21 @@ import pygame as pg
 if __name__ == "__main__":
     b1 = Body(Vector2(0, 0),
               velocity=Vector2(0, 0),
-              mass=1000,
+              mass=5,
               draw_radius=10)
-    b2 = Body(Vector2(1, 1),
-              velocity=Vector2(0, 0.2),
+    b2 = Body(Vector2(1, 0),
+              velocity=Vector2(0, -0.1),
               mass=1,
               draw_radius=5)
+    b3 =Body(Vector2(-1,0),
+             velocity = Vector2(0,0.1),
+             mass=1,
+             draw_radius=5)
 
     world = World()
     world.add(b1)
     world.add(b2)
+    world.add(b3)
 
     simulator = Simulator(world, DummyEngine, DummySolver)
 
@@ -27,11 +32,11 @@ if __name__ == "__main__":
     screen = Screen(screen_size,
                     bg_color=(0, 0, 0),
                     caption="Simulator")
-    screen.camera.scale = 1
+    screen.camera.scale = 50
 
     # this coefficient controls the speed
     # of the simulation
-    time_scale = 100
+    time_scale = 1
 
     print("Start program")
     while not screen.should_quit:
@@ -40,7 +45,6 @@ if __name__ == "__main__":
         # simulate physics
         delta_time = time_scale * dt / 1000
         simulator.step(delta_time)
-
         # read events
         screen.get_events()
 
