@@ -43,12 +43,23 @@ if __name__ == "__main__":
         dt = screen.tick(60)
 
         # simulate physics
-        delta_time = time_scale * dt / 1000
-        simulator.step(delta_time)
+        if not screen.get_P_key():
+                delta_time = time_scale * dt / 1000
+                simulator.step(delta_time)
         # read events
         screen.get_events()
 
         # handle events
+
+        # arrow keys
+        if screen._buttons[5]==True:
+            screen.camera.position[1]-=5/screen.camera.scale
+        if screen._buttons[6]==True:
+            screen.camera.position[1]+=5/screen.camera.scale
+        if screen._buttons[7]==True:
+            screen.camera.position[0]-=5/screen.camera.scale
+        if screen._buttons[8]==True:
+            screen.camera.position[0]+=5/screen.camera.scale
         #   scroll wheel
         if screen.get_wheel_up():
             screen.camera.scale *= 1.1

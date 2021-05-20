@@ -19,8 +19,8 @@ class Screen:
         self.mouse_position = Vector2(0, 0)
 
         # this will store which buttons have been pressed in the current frame
-        # [LeftMouse, MiddleMouse, RightMouse, ScrollWheelUp, SrollWheelDown]
-        self._buttons = [False, False, False, False, False]
+        # [LeftMouse, MiddleMouse, RightMouse, ScrollWheelUp, ScrollWheelDown, UpKey, DownKey, LeftKey, RightKey, PKey]
+        self._buttons = [False, False, False, False, False, False, False, False, False, False]
 
         # this will be true when the user presses the exit button of the window
         self.should_quit = False
@@ -40,7 +40,7 @@ class Screen:
     def get_events(self):
         self.mouse_position = Vector2(*pg.mouse.get_pos())
 
-        for i in range(0, len(self._buttons)):
+        for i in [0,1,2,3,4]:
             self._buttons[i] = False
 
         events = pg.event.get()
@@ -50,6 +50,27 @@ class Screen:
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if event.button <= len(self._buttons):
                     self._buttons[event.button - 1] = True
+            elif event.type == pg.KEYDOWN:
+                if event.key == pg.K_UP:
+                    self._buttons[5] = True
+                if event.key == pg.K_DOWN:
+                    self._buttons[6] = True
+                if event.key == pg.K_LEFT:
+                    self._buttons[7] = True
+                if event.key == pg.K_RIGHT:
+                    self._buttons[8] = True
+                if event.key == pg.K_p:
+                    self._buttons[9] = not self._buttons[9]
+            elif event.type == pg.KEYUP:
+                if event.key == pg.K_UP:
+                    self._buttons[5] = False
+                if event.key == pg.K_DOWN:
+                    self._buttons[6] = False
+                if event.key == pg.K_LEFT:
+                    self._buttons[7] = False
+                if event.key == pg.K_RIGHT:
+                    self._buttons[8] = False
+                    
 
         self.frame += 1
 
@@ -95,3 +116,9 @@ class Screen:
     def get_right_mouse(self): return self._buttons[2]
     def get_wheel_up(self): return self._buttons[3]
     def get_wheel_down(self): return self._buttons[4]
+    def get_up_key(self) : return self._buttons[5]
+    def get_down_key(self):return self._buttons[6]
+    def get_left_key(self):return self._buttons[7]
+    def get_right_key(self): return self._buttons[8]
+    def get_P_key(self): return self._buttons[9]
+    
