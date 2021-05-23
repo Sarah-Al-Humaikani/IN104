@@ -41,15 +41,18 @@ class Screen:
         self.mouse_position = Vector2(*pg.mouse.get_pos())
 
         for i in [0,1,2,3,4]:
-            self._buttons[i] = False
+            self._buttons[i] = False  #on réinitialise les boutons cliquables à chaque frame
 
         events = pg.event.get()
         for event in events:
             if event.type == pg.QUIT:
                 self.should_quit = True
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if event.button <= len(self._buttons):
+                if event.button <= 5:
                     self._buttons[event.button - 1] = True
+            elif event.type == pg.MOUSEBUTTONUP: 
+                if event.button <= 3:
+                    self._buttons[event.button - 1] = False
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_UP:
                     self._buttons[5] = True
@@ -105,7 +108,7 @@ class Screen:
             screen_pos = self.camera.to_screen_coords(body.position)
             pg.draw.circle(s, body.color,
                            (int(screen_pos.get_x()), int(screen_pos.get_y())),
-                           int(body.draw_radius), 0)
+                           int(body.draw_radius * self.camera.scale/50), 0)
 
     def draw_corner_text(self, s):
         draw_text(self._screen, self._font, s,

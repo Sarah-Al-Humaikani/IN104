@@ -51,6 +51,14 @@ if __name__ == "__main__":
 
         # handle events
 
+
+
+        #   scroll wheel
+        if screen.get_wheel_up():
+            screen.camera.scale *= 1.1
+        elif screen.get_wheel_down():
+            screen.camera.scale *= 0.9
+
         # arrow keys
         if screen._buttons[5]==True:
             screen.camera.position[1]-=5/screen.camera.scale
@@ -60,11 +68,15 @@ if __name__ == "__main__":
             screen.camera.position[0]-=5/screen.camera.scale
         if screen._buttons[8]==True:
             screen.camera.position[0]+=5/screen.camera.scale
-        #   scroll wheel
-        if screen.get_wheel_up():
-            screen.camera.scale *= 1.1
-        elif screen.get_wheel_down():
-            screen.camera.scale *= 0.9
+
+
+        if screen.get_right_mouse():
+            world.add(Body(screen.camera.from_screen_coords(screen.mouse_position),
+                            velocity=Vector2(0,0),
+                            mass=1,
+                            draw_radius=5))
+            simulator = Simulator(world, DummyEngine, DummySolver)
+
 
         # draw current state
         screen.draw(world)
